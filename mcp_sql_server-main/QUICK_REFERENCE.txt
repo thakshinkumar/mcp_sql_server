@@ -1,0 +1,132 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    VOICE-ENABLED SQL SERVER - QUICK REFERENCE                ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌─ ESSENTIAL COMMANDS ──────────────────────────────────────────────────────────┐
+│                                                                                │
+│  Test POC:           python test_poc.py                                        │
+│  Start API:          python run_api.py                                         │
+│  Check Database:     python check_database.py                                  │
+│  Interactive Test:   python interactive_test.py                                │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ API ENDPOINTS ───────────────────────────────────────────────────────────────┐
+│                                                                                │
+│  Docs:               http://localhost:8000/docs                                │
+│  Health:             GET  /api/health                                          │
+│  Text Query:         POST /api/query/text                                      │
+│  Statistics:         GET  /api/stats                                           │
+│  Cache Stats:        GET  /api/cache/stats                                     │
+│  Clear Cache:        POST /api/cache/clear                                     │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ EXAMPLE QUERIES ─────────────────────────────────────────────────────────────┐
+│                                                                                │
+│  curl -X POST http://localhost:8000/api/query/text \                          │
+│    -H "Content-Type: application/json" \                                      │
+│    -d '{"query": "List all tables in my database"}'                           │
+│                                                                                │
+│  curl -X POST http://localhost:8000/api/query/text \                          │
+│    -H "Content-Type: application/json" \                                      │
+│    -d '{"query": "Create table products with id, name, price"}'               │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ DATABASE INFO ───────────────────────────────────────────────────────────────┐
+│                                                                                │
+│  Server:             localhost:50998                                           │
+│  Database:           master                                                    │
+│  Authentication:     Windows Auth                                              │
+│                                                                                │
+│  ⚠️  ALL QUERIES EXECUTE ON REAL DATABASE!                                    │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ SYSTEM TABLES ───────────────────────────────────────────────────────────────┐
+│                                                                                │
+│  query_history       - All executed queries                                    │
+│  query_candidates    - Generated SQL variants                                  │
+│  q_table             - Q-learning values                                       │
+│  query_cache         - Cached results                                          │
+│  optimization_metrics - Performance data                                       │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ CONFIGURATION (.env) ────────────────────────────────────────────────────────┐
+│                                                                                │
+│  MSSQL_SERVER=localhost                                                        │
+│  MSSQL_PORT=50998                                                              │
+│  MSSQL_DATABASE=master                                                         │
+│  MSSQL_WINDOWS_AUTH=true                                                       │
+│                                                                                │
+│  LLM_PROVIDER=gemini                                                           │
+│  LLM_API_KEY=                    # Optional - uses mock mode if empty          │
+│  LLM_MODEL=gemini-pro                                                          │
+│                                                                                │
+│  CACHE_ENABLED=true                                                            │
+│  RL_ENABLED=true                                                               │
+│  OPTIMIZER_NUM_CANDIDATES=3                                                    │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ GEMINI API SETUP (OPTIONAL) ─────────────────────────────────────────────────┐
+│                                                                                │
+│  1. Get key:         https://makersuite.google.com/app/apikey                 │
+│  2. Install:         pip install google-generativeai                          │
+│  3. Configure:       Edit .env → LLM_API_KEY=AIza...                          │
+│  4. Test:            python test_poc.py                                        │
+│                                                                                │
+│  See: GEMINI_SETUP.md for details                                             │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ FEATURES ────────────────────────────────────────────────────────────────────┐
+│                                                                                │
+│  ✅ Natural Language to SQL                                                    │
+│  ✅ Multi-Candidate Generation (3 variants)                                    │
+│  ✅ Cost & Latency Evaluation                                                  │
+│  ✅ Q-Learning (Reinforcement Learning)                                        │
+│  ✅ Query Caching (LRU + TTL)                                                  │
+│  ✅ REST API (FastAPI)                                                         │
+│  ✅ Metrics Tracking                                                           │
+│  ✅ Real Database Integration                                                  │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ DOCUMENTATION FILES ─────────────────────────────────────────────────────────┐
+│                                                                                │
+│  QUICK_START.md              - Quick start guide                              │
+│  POC_SETUP.md                - Complete setup instructions                    │
+│  DATABASE_GUIDE.md           - Database usage & safety                        │
+│  GEMINI_SETUP.md             - Gemini API configuration                       │
+│  COMMANDS.md                 - All commands reference                         │
+│  IMPLEMENTATION_SUMMARY.md   - Technical details                              │
+│  FINAL_SUMMARY.md            - Complete overview                              │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ TROUBLESHOOTING ─────────────────────────────────────────────────────────────┐
+│                                                                                │
+│  Can't connect?      Check: Get-Service MSSQL$SQLEXPRESS                      │
+│  Table not found?    Run: python check_database.py                            │
+│  Want Gemini?        See: GEMINI_SETUP.md                                     │
+│  Reset system?       Drop tables: query_history, q_table, etc.                │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ DEMO SEQUENCE ───────────────────────────────────────────────────────────────┐
+│                                                                                │
+│  1. python test_poc.py           # Show it works                              │
+│  2. python check_database.py     # Show database connection                   │
+│  3. python run_api.py            # Start API                                  │
+│  4. Open http://localhost:8000/docs  # Show API docs                          │
+│  5. Try queries via API          # Demonstrate features                       │
+│  6. curl http://localhost:8000/api/stats  # Show learning                     │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         POC COMPLETE AND READY! ✅                            ║
+╚══════════════════════════════════════════════════════════════════════════════╝

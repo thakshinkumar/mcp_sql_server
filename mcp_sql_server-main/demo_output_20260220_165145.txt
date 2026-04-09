@@ -1,0 +1,73 @@
+
+======================================================================
+NATURAL LANGUAGE TO SQL - LIVE DEMONSTRATION
+======================================================================
+Timestamp: 2026-02-20 16:51:35
+
+
+──────────────────────────────────────────────────────────────────────
+QUERY #1
+──────────────────────────────────────────────────────────────────────
+
+📝 Natural Language Input:
+   "Create a table called Demo with id, name and description"
+
+🔄 Generated SQL Candidates:
+   1. CREATE TABLE Demo (id, name INT PRIMARY KEY, description VARCHAR(100))
+   2. CREATE TABLE Demo (id, name INT PRIMARY KEY, description VARCHAR(100))
+   3. CREATE TABLE dbo.Demo (id, name INT PRIMARY KEY, description VARCHAR(100))
+
+✅ Selected SQL:
+   CREATE TABLE Demo (id, name INT PRIMARY KEY, description VARCHAR(100))
+
+📊 Execution Metrics:
+   • Success: False
+   • Execution Time: 0.00 ms
+   • Rows Affected: 0
+
+
+──────────────────────────────────────────────────────────────────────
+QUERY #2
+──────────────────────────────────────────────────────────────────────
+
+📝 Natural Language Input:
+   "Insert some dummy data to Demo"
+
+🔄 Generated SQL Candidates:
+   1. INSERT INTO Demo (ID, Name, Description) VALUES (1, 'Sample Name', 'Sample Description')
+   2. INSERT INTO Demo VALUES (1, 'Sample Name', 'Sample Description')
+   3. INSERT INTO Demo (Name, Description) VALUES ('Sample Name', 'Sample Description')
+
+✅ Selected SQL:
+   INSERT INTO Demo (ID, Name, Description) VALUES (1, 'Sample Name', 'Sample Description')
+
+📊 Execution Metrics:
+   • Success: False
+   • Execution Time: 0.00 ms
+   • Rows Affected: 0
+
+
+──────────────────────────────────────────────────────────────────────
+QUERY #3
+──────────────────────────────────────────────────────────────────────
+
+📝 Natural Language Input:
+   "Show all data from Demo"
+
+🔄 Generated SQL Candidates:
+   1. SELECT * FROM Demo
+   2. SELECT TOP 100 * FROM Demo
+   3. SELECT * FROM Demo ORDER BY id
+
+✅ Selected SQL:
+   SELECT * FROM Demo ORDER BY id
+
+📊 Execution Metrics:
+   • Success: False
+   • Execution Time: 0.00 ms
+   • Rows Affected: 0
+
+
+======================================================================
+DEMONSTRATION COMPLETE
+======================================================================

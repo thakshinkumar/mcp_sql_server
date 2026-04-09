@@ -1,0 +1,147 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    POSTMAN QUICK REFERENCE CARD                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌─ STEP 1: START API ───────────────────────────────────────────────────────────┐
+│                                                                                │
+│  Terminal Command:                                                             │
+│  python run_api.py                                                             │
+│                                                                                │
+│  Wait for: "Uvicorn running on http://0.0.0.0:8000"                           │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ TEST 1: HEALTH CHECK ────────────────────────────────────────────────────────┐
+│                                                                                │
+│  Method:  GET                                                                  │
+│  URL:     http://localhost:8000/api/health                                    │
+│                                                                                │
+│  Expected: {"status": "healthy", "database": "connected"}                     │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ TEST 2: LIST TABLES (BEFORE) ────────────────────────────────────────────────┐
+│                                                                                │
+│  Method:  POST                                                                 │
+│  URL:     http://localhost:8000/api/query/text                                │
+│  Headers: Content-Type: application/json                                      │
+│  Body:    {                                                                    │
+│             "query": "List all tables in my database"                         │
+│           }                                                                    │
+│                                                                                │
+│  Expected: List of current tables (5 system tables)                           │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ TEST 3: CREATE TABLE ────────────────────────────────────────────────────────┐
+│                                                                                │
+│  Method:  POST                                                                 │
+│  URL:     http://localhost:8000/api/query/text                                │
+│  Headers: Content-Type: application/json                                      │
+│  Body:    {                                                                    │
+│             "query": "Create a table called customers with id, name, email"   │
+│           }                                                                    │
+│                                                                                │
+│  Expected: "Query executed successfully. Rows affected: 0"                    │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ TEST 4: LIST TABLES (AFTER) ─────────────────────────────────────────────────┐
+│                                                                                │
+│  Method:  POST                                                                 │
+│  URL:     http://localhost:8000/api/query/text                                │
+│  Headers: Content-Type: application/json                                      │
+│  Body:    {                                                                    │
+│             "query": "List all tables in my database"                         │
+│           }                                                                    │
+│                                                                                │
+│  Expected: List now includes "customers" table ✓                              │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ TEST 5: INSERT DATA ─────────────────────────────────────────────────────────┐
+│                                                                                │
+│  Method:  POST                                                                 │
+│  URL:     http://localhost:8000/api/query/text                                │
+│  Headers: Content-Type: application/json                                      │
+│  Body:    {                                                                    │
+│             "query": "Insert into customers values (1, 'John', 'john@ex.com')"│
+│           }                                                                    │
+│                                                                                │
+│  Expected: "Rows affected: 1"                                                 │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ TEST 6: QUERY DATA ──────────────────────────────────────────────────────────┐
+│                                                                                │
+│  Method:  POST                                                                 │
+│  URL:     http://localhost:8000/api/query/text                                │
+│  Headers: Content-Type: application/json                                      │
+│  Body:    {                                                                    │
+│             "query": "Select all from customers"                              │
+│           }                                                                    │
+│                                                                                │
+│  Expected: Returns row with John's data                                       │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ TEST 7: GET STATISTICS ──────────────────────────────────────────────────────┐
+│                                                                                │
+│  Method:  GET                                                                  │
+│  URL:     http://localhost:8000/api/stats                                     │
+│                                                                                │
+│  Expected: Shows cache hits, RL updates, epsilon decay                        │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ TEST 8: CLEANUP ─────────────────────────────────────────────────────────────┐
+│                                                                                │
+│  Method:  POST                                                                 │
+│  URL:     http://localhost:8000/api/query/text                                │
+│  Headers: Content-Type: application/json                                      │
+│  Body:    {                                                                    │
+│             "query": "DROP TABLE customers"                                   │
+│           }                                                                    │
+│                                                                                │
+│  Expected: Table deleted successfully                                         │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ POSTMAN SETUP ───────────────────────────────────────────────────────────────┐
+│                                                                                │
+│  For POST requests:                                                            │
+│  1. Select POST method                                                         │
+│  2. Enter URL                                                                  │
+│  3. Click Headers tab → Add: Content-Type = application/json                  │
+│  4. Click Body tab → Select raw → Select JSON                                 │
+│  5. Paste JSON body                                                            │
+│  6. Click Send                                                                 │
+│                                                                                │
+│  For GET requests:                                                             │
+│  1. Select GET method                                                          │
+│  2. Enter URL                                                                  │
+│  3. Click Send                                                                 │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ VERIFICATION ────────────────────────────────────────────────────────────────┐
+│                                                                                │
+│  After creating table, verify in database:                                    │
+│  python check_database.py                                                     │
+│                                                                                │
+│  You should see "customers" table listed!                                     │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ TROUBLESHOOTING ─────────────────────────────────────────────────────────────┐
+│                                                                                │
+│  Connection refused?     → Check API is running (python run_api.py)           │
+│  404 Not Found?          → Check URL spelling                                 │
+│  Invalid JSON?           → Make sure Body is set to raw + JSON                │
+│  500 Error?              → Check API terminal for error logs                  │
+│                                                                                │
+└────────────────────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  💡 TIP: Save all requests as a Postman Collection for easy re-testing!      ║
+╚══════════════════════════════════════════════════════════════════════════════╝

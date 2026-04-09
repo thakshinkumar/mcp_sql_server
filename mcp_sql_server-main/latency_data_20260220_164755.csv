@@ -1,0 +1,9 @@
+query,total_latency,execution_time,success
+List all tables,0,0,False
+Create a table called Products...,0,0,False
+Add email column to Products t...,0,0,False
+Insert some dummy data to Prod...,0,0,False
+Show all data from Products,0,0,False
+Update Products set name to Te...,0,0,False
+Remove email column from Produ...,0,0,False
+Drop the Products table,0,0,False

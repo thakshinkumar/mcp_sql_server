@@ -1,0 +1,9 @@
+query,total_latency,execution_time,success
+List all tables,4391.817331314087,110.54468154907227,True
+Create a table called Products...,2947.9544162750244,0.0,True
+Add email column to Products t...,2453.3190727233887,68.22013854980469,True
+Insert some dummy data to Prod...,3004.2877197265625,0.0,True
+Show all data from Products,2928.1866550445557,6.066560745239258,True
+Update Products set name to Te...,3017.866611480713,11.995315551757812,True
+Remove email column from Produ...,2465.4712677001953,22.03655242919922,True
+Drop the Products table,2819.3325996398926,23.233890533447266,True
